@@ -66,6 +66,19 @@ let start = async () => {
                 xurl = host;
             }
 
+
+            for (let j = 0; j < 20; j++) {
+                for (let k = 0; k < 20; k++) {
+                    console.time(`${j} ${k} ${xurl} getBlock 延迟`);
+                    web3.eth.getBlock('pending').then(async block => {
+                        console.timeEnd(`${j} ${k} ${xurl} getBlock 延迟`);
+                        await sleep(3000 * Math.floor(Math.random() * 5));
+                        console.log(`block ${j} ${k} ${xurl} `);
+                    });
+                    await sleep(3000 / 20);
+                }
+            }
+
             console.time(`${i} ${xurl} getBlock 延迟`);
             await web3.eth.getBlock('pending')
             console.timeEnd(`${i} ${xurl} getBlock 延迟`);
