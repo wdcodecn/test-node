@@ -8,8 +8,8 @@ let rpc2 = 'https://bsc-dataseed1.defibit.io/';
 let rpc3 = 'https://bsc-dataseed1.ninicoin.io/';
 let rpc4 = 'https://bsc-dataseed1.binance.org/';
 
-let options = {
-    timeout: 100,
+let wss_options = {
+    timeout: 1000,
     reconnectDelay: 10,
     reconnect: {
         auto: true,
@@ -19,14 +19,19 @@ let options = {
     },
 };
 
-let web3_wss = new Web3(new Web3.providers.WebsocketProvider(wss,options));
-let web3_wss1 = new Web3(new Web3.providers.WebsocketProvider(wss1,options));
+let rpc_options = {
+    timeout: 1000,
+    keepAlive: true,
+};
 
-let web3_rpc = new Web3(new Web3.providers.HttpProvider(rpc));
-let web3_rpc1 = new Web3(new Web3.providers.HttpProvider(rpc1));
-let web3_rpc2 = new Web3(new Web3.providers.HttpProvider(rpc2));
-let web3_rpc3 = new Web3(new Web3.providers.HttpProvider(rpc3));
-let web3_rpc4 = new Web3(new Web3.providers.HttpProvider(rpc4));
+let web3_wss = new Web3(new Web3.providers.WebsocketProvider(wss, wss_options));
+let web3_wss1 = new Web3(new Web3.providers.WebsocketProvider(wss1, wss_options));
+
+let web3_rpc = new Web3(new Web3.providers.HttpProvider(rpc, rpc_options));
+let web3_rpc1 = new Web3(new Web3.providers.HttpProvider(rpc1, rpc_options));
+let web3_rpc2 = new Web3(new Web3.providers.HttpProvider(rpc2, rpc_options));
+let web3_rpc3 = new Web3(new Web3.providers.HttpProvider(rpc3, rpc_options));
+let web3_rpc4 = new Web3(new Web3.providers.HttpProvider(rpc4, rpc_options));
 
 let web3s = [
     web3_wss,
@@ -48,7 +53,7 @@ let start = async () => {
 
         for (let web3 of web3s) {
 
-            let  provider = web3.currentProvider;
+            let provider = web3.currentProvider;
 
             let url = provider.url;
             let host = provider.host;
