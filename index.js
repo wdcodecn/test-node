@@ -11,14 +11,18 @@ let options = {
     },
 };
 let web3 = new Web3(new Web3.providers.WebsocketProvider(wss, options));
-console.time('getBlock');
-web3.eth.getBlock('pending').then(block=>{
-    console.timeEnd('getBlock');
-    // console.log(block);
-})
 
-console.time('getBlockNumber');
-web3.eth.getBlockNumber().then(block=>{
-    console.timeEnd('getBlockNumber');
-    // console.log(block);
-})
+for (let i = 0; i < 100; i++) {
+
+    console.time('getBlock');
+    web3.eth.getBlock('pending').then(block => {
+        console.timeEnd('getBlock');
+        // console.log(block);
+    })
+
+    console.time('getBlockNumber');
+    web3.eth.getBlockNumber().then(block => {
+        console.timeEnd('getBlockNumber');
+        // console.log(block);
+    })
+}
