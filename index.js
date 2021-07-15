@@ -66,17 +66,16 @@ let start = async () => {
                 xurl = host;
             }
 
-            console.time(`${i} ${xurl} getBlock`);
+            console.time(`${i} ${xurl} getBlock 延迟`);
             await web3.eth.getBlock('pending')
-            console.timeEnd(`${i} ${xurl} getBlock`);
+            console.timeEnd(`${i} ${xurl} getBlock 延迟`);
 
-            console.time(`${i} ${xurl} getBlockNumber`);
+            console.time(`${i} ${xurl} getBlockNumber 延迟`);
             await web3.eth.getBlockNumber()
-            console.timeEnd(`${i} ${xurl} getBlockNumber`);
+            console.timeEnd(`${i} ${xurl} getBlockNumber 延迟`);
         }
         await sleep(100);
     }
-
 };
 
 start();
