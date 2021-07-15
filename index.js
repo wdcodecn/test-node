@@ -1,6 +1,8 @@
 var Web3 = require('web3');
 let wss = 'wss://bsc-ws-node.nariox.org:443';
+let wss1 = 'ws://bsc.getblock.io/mainnet/?api_key=c7d17503-99e5-489f-9a9d-3673b9494b63';
 
+let rpc = 'https://bsc.getblock.io/mainnet/?api_key=c7d17503-99e5-489f-9a9d-3673b9494b63';
 let rpc1 = 'https://bsc-dataseed.binance.org/';
 let rpc2 = 'https://bsc-dataseed1.defibit.io/';
 let rpc3 = 'https://bsc-dataseed1.ninicoin.io/';
@@ -18,7 +20,9 @@ let options = {
 };
 
 let web3_wss = new Web3(new Web3.providers.WebsocketProvider(wss,options));
+let web3_wss1 = new Web3(new Web3.providers.WebsocketProvider(wss1,options));
 
+let web3_rpc = new Web3(new Web3.providers.HttpProvider(rpc));
 let web3_rpc1 = new Web3(new Web3.providers.HttpProvider(rpc1));
 let web3_rpc2 = new Web3(new Web3.providers.HttpProvider(rpc2));
 let web3_rpc3 = new Web3(new Web3.providers.HttpProvider(rpc3));
@@ -26,6 +30,8 @@ let web3_rpc4 = new Web3(new Web3.providers.HttpProvider(rpc4));
 
 let web3s = [
     web3_wss,
+    web3_wss1,
+    web3_rpc,
     web3_rpc1,
     web3_rpc2,
     web3_rpc3,
@@ -42,13 +48,26 @@ let start = async () => {
 
         for (let web3 of web3s) {
 
-            console.time(`${i} getBlock`);
-            await web3.eth.getBlock('pending')
-            console.timeEnd(`${i} getBlock`);
+            let  provider = web3.currentProvider;
 
-            console.time(`${i} getBlockNumber`);
+            let url = provider.url;
+            let host = provider.host;
+
+            let xurl;
+            if (url) {
+                xurl = url;
+            }
+            if (host) {
+                xurl = host;
+            }
+
+            console.time(`${i} ${xurl} getBlock`);
+            await web3.eth.getBlock('pending')
+            console.timeEnd(`${i} ${xurl} getBlock`);
+
+            console.time(`${i} ${xurl} getBlockNumber`);
             await web3.eth.getBlockNumber()
-            console.timeEnd(`${i} getBlockNumber`);
+            console.timeEnd(`${i} ${xurl} getBlockNumber`);
         }
         await sleep(100);
     }
