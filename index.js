@@ -12,17 +12,26 @@ let options = {
 };
 let web3 = new Web3(new Web3.providers.WebsocketProvider(wss, options));
 
-for (let i = 0; i < 100; i++) {
-
-    console.time('getBlock');
-    web3.eth.getBlock('pending').then(block => {
-        console.timeEnd('getBlock');
-        // console.log(block);
-    })
-
-    console.time('getBlockNumber');
-    web3.eth.getBlockNumber().then(block => {
-        console.timeEnd('getBlockNumber');
-        // console.log(block);
-    })
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
+
+let start = async () => {
+    for (let i = 0; i < 100; i++) {
+        console.log(`---`)
+
+        console.time(`${i} getBlock`);
+        await web3.eth.getBlock('pending')
+        console.timeEnd(`${i} getBlock`);
+
+        console.time(`${i} getBlockNumber`);
+        await web3.eth.getBlockNumber()
+        console.timeEnd(`${i} getBlockNumber`);
+
+        await sleep(100);
+    }
+
+};
+
+start();
+
