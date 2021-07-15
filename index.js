@@ -4,6 +4,7 @@ let wss = 'wss://bsc-ws-node.nariox.org:443';
 let rpc1 = 'https://bsc-dataseed.binance.org/';
 let rpc2 = 'https://bsc-dataseed1.defibit.io/';
 let rpc3 = 'https://bsc-dataseed1.ninicoin.io/';
+let rpc4 = 'https://bsc-dataseed1.binance.org/';
 
 let options = {
     timeout: 100,
@@ -21,12 +22,14 @@ let web3_wss = new Web3(new Web3.providers.WebsocketProvider(wss,options));
 let web3_rpc1 = new Web3(new Web3.providers.HttpProvider(rpc1));
 let web3_rpc2 = new Web3(new Web3.providers.HttpProvider(rpc2));
 let web3_rpc3 = new Web3(new Web3.providers.HttpProvider(rpc3));
+let web3_rpc4 = new Web3(new Web3.providers.HttpProvider(rpc4));
 
 let web3s = [
     web3_wss,
     web3_rpc1,
     web3_rpc2,
-    web3_rpc3
+    web3_rpc3,
+    web3_rpc4
 ];
 
 function sleep(ms) {
