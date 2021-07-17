@@ -35,12 +35,12 @@ let web3_rpc4 = new Web3(new Web3.providers.HttpProvider(rpc4, rpc_options));
 
 let web3s = [
     web3_wss,
-    web3_wss1,
-    web3_rpc,
-    web3_rpc1,
-    web3_rpc2,
-    web3_rpc3,
-    web3_rpc4
+    // web3_wss1,
+    // web3_rpc,
+    // web3_rpc1,
+    // web3_rpc2,
+    // web3_rpc3,
+    // web3_rpc4
 ];
 
 function sleep(ms) {
@@ -48,7 +48,7 @@ function sleep(ms) {
 }
 
 let start = async () => {
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 200; i++) {
         console.log(`---`)
 
         for (let web3 of web3s) {
@@ -67,17 +67,17 @@ let start = async () => {
             }
 
 
-            for (let j = 0; j < 20; j++) {
-                for (let k = 0; k < 20; k++) {
-                    console.time(`${j} ${k} ${xurl} getBlock 延迟`);
-                    web3.eth.getBlock('pending').then(async block => {
-                        console.timeEnd(`${j} ${k} ${xurl} getBlock 延迟`);
-                        await sleep(3000 * Math.floor(Math.random() * 5));
-                        console.log(`block ${j} ${k} ${xurl} `);
-                    });
-                    await sleep(3000 / 20);
-                }
-            }
+            // for (let j = 0; j < 20; j++) {
+            //     for (let k = 0; k < 20; k++) {
+            //         console.time(`${j} ${k} ${xurl} getBlock 延迟`);
+            //         web3.eth.getBlock('pending').then(async block => {
+            //             console.timeEnd(`${j} ${k} ${xurl} getBlock 延迟`);
+            //             await sleep(3000 * Math.floor(Math.random() * 5));
+            //             console.log(`block ${j} ${k} ${xurl} `);
+            //         });
+            //         await sleep(3000 / 20);
+            //     }
+            // }
 
             console.time(`${i} ${xurl} getBlock 延迟`);
             await web3.eth.getBlock('pending')
